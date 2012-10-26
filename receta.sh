@@ -5,7 +5,7 @@ pkowner="Clase de linux"
 pkgdesc="The Generic Constraint Development Environment"
 url="http://www.gecode.org"
 license='MIT'
-depends='qt'
+depends=''
 source="http://escher.puj.edu.co/~farhat/helloworld-0.1.tar.gz"
 md5sums='7a5cb9945e0bb48f222992f2106130ac'
 
@@ -25,5 +25,4 @@ build() {
     rm -rf $pkgname-$pkgver
 }
 
-build
 
