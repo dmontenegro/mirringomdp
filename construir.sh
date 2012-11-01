@@ -1,6 +1,10 @@
 #!/bin/bash
 . ./$1
-
+#Aqui llamamos el archivo que pasamos por argumento al ejecutar construir .sh
+#que va a ser la receta que vamos a construir probablemente
+#despues vamos a modificar esto, hay que hablarlo.
+#Esto genera el archivo .tar.gz y extraemos todos los datos de la receta
+#que pasamos como argumento.
 name=`grep "pkgname=" $1`
 name=${name#*=}
 ver=`grep "pkgver=" $1`
