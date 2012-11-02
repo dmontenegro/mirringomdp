@@ -5,40 +5,30 @@
 #despues vamos a modificar esto, hay que hablarlo.
 #Esto genera el archivo .tar.gz y extraemos todos los datos de la receta
 #que pasamos como argumento.
-name=`grep "pkgname=" $1`
-name=${name#*=}
-ver=`grep "pkgver=" $1`
-ver=${ver#*=}
-rel=`grep "pkgrel=" $1`
-rel=${rel#*=}
-owner=`grep "pkgowner=" $1`
-owner=${owner#*=}
-url=`grep "url=" $1`
-url=${url#*=}
-sourc=`grep "source=" $1`
-sourc=${sourc#*=}
-shasum=`grep "sha512sums=" $1`
-shasum=${shasum#*=}
 
+pkgdir=paquete
 path=$PWD
+echo $source
 wget $source
-ss=`sha512sum $name-$ver.tar.gz| cut -d " " -f 1`
-echo $shasum
+ss=`sha512sum $pkgname-$pkgver.tar.bz2| cut -d " " -f 1`
+echo $sha512sums
 echo $ss
-if [ $ss != $shasum ]
+if [ $ss != $sha512sums ]
 then
-    rm $name-$ver.tar.gz
+    rm $pkgname-$pkgver.tar.bz2
     echo "Suma criptografica mala."
 exit 1
 fi
-tar xvfz $name-$ver.tar.gz
-mkdir paquete
-cp -r $name-$ver/* paquete
-cd paquete
+tar xvfj $pkgname-$pkgver.tar.bz2
+mkdir $pkgdir
+mv $pkgname-$pkgver $pkgdir 
+#cp -r $pkgname-$pkgver/* $pkgdir
+cd $pkgdir
 build
-tar cvfz $name-$ver-$rel.tar.gz *
-mv $name-$ver-$rel.tar.gz $path
+cd $path/$pkgdir
+tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *
+mv $pkgname-$pkgver-$pkgrel.tar.gz $path
 cd $path 
-rm -rf paquete
-rm -rf $name-$ver
-rm $name-$ver.tar.gz
+rm -rf $pkgdir
+rm -rf $pkgname-$pkgver
+rm $pkgname-$pkgver.tar.bz2
