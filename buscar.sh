@@ -23,7 +23,6 @@ then
 grep $1 mybd.txt|awk -F '","' '{print "Nombre del programa: \n " $1 "\n \nVersion:\n" $2 "\n \n Version del Builder:\n" $3 "\n \n Descripcion:\n" $4 "\n \n pagina web: \n" $5 "\n \nLicencia: \n" $6 "\n \n Link de descarga directa:\n" $8 "\n \n Suma criptografica:\n" $9}'
 echo -e "\n Dependencias"
 grep $1 mybd.txt|awk -F '","' '{print $7 "\n"}'|awk '{print $0 "\n"}' 
-
 exit 0
 else
 #buscar en la bd local
