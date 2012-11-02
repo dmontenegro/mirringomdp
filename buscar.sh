@@ -20,7 +20,9 @@
 if [ -z "$2" ]
 then
 #echo 'en la base de datos local se ha encontrado'
-grep -n $1 mybd.txt|awk -F '","' '{print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t" $6 "\t" $8 "\t" $9 "\t" $10}'
+grep $1 mybd.bd|awk -F '","' '{print "Nombre del programa: \n " $1 "\n \nVersion:\n" $2 "\n \n Version del Builder:\n" $3 "\n \n Descripcion:\n" $4 "\n \n pagina web: \n" $5 "\n \nLicencia: \n" $6 "\n \n Link de descarga directa:\n" $8 "\n \n Suma criptografica:\n" $9}'
+echo -e "\n Dependencias"
+grep $1 mybd.bd|awk -F '","' '{print $7 "\n"}'|awk '{print $0 "\n"}' 
 exit 0
 else
 #buscar en la bd local
