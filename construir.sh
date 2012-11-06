@@ -6,6 +6,8 @@
 #Esto genera el archivo .tar.gz y extraemos todos los datos de la receta
 #que pasamos como argumento.
 
+#Construir.sh depende de: atool. libreria la cual tiene apack, aunpack y als.
+
 pkgdir=paquete
 srcdir=$pkgname-$pkgver
 path=$PWD
@@ -22,7 +24,8 @@ then
     echo "Suma criptografica mala."
 exit 1
 fi
-tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
+#tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
+aunpack $pkgname-$pkgver*
 build
 cd $path/$pkgdir
 tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *  
