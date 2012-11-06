@@ -7,28 +7,28 @@
 #que pasamos como argumento.
 
 pkgdir=paquete
+srcdir=$pkgname-$pkgver
 path=$PWD
-echo $source
+mkdir $srcdir
+mkdir $pkgdir
+#echo $source
 wget $source
 ss=`sha512sum $pkgname-$pkgver.tar.bz2| cut -d " " -f 1`
-echo $sha512sums
-echo $ss
+#echo $sha512sums
+#echo $ss
 if [ $ss != $sha512sums ]
 then
     rm $pkgname-$pkgver.tar.bz2
     echo "Suma criptografica mala."
 exit 1
 fi
-tar xvfj $pkgname-$pkgver.tar.bz2
-mkdir $pkgdir
-mv $pkgname-$pkgver $pkgdir 
-#cp -r $pkgname-$pkgver/* $pkgdir
-cd $pkgdir
+tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
 build
 cd $path/$pkgdir
-tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *
+tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *  
 mv $pkgname-$pkgver-$pkgrel.tar.gz $path
 cd $path 
 rm -rf $pkgdir
+rm -rf $srcdir
 rm -rf $pkgname-$pkgver
 rm $pkgname-$pkgver.tar.bz2

@@ -14,6 +14,7 @@ build() {
 
   python setup.py build
 
-  python setup.py install --prefix=$pkgdir--optimize=1
+  # cd $pkgname-$pkgger
 
+  python setup.py install --root=$path/$pkgdir --optimize=1
 }
