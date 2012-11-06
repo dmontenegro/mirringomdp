@@ -25,7 +25,7 @@ then
 exit 1
 fi
 #tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
-aunpack $pkgname-$pkgver*
+aunpack $pkgname-$pkgver* $srcdir
 build
 cd $path/$pkgdir
 tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *  
