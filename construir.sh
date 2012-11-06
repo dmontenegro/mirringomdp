@@ -7,7 +7,7 @@
 #que pasamos como argumento.
 
 #Construir.sh depende de: atool. libreria la cual tiene apack, aunpack y als.
-
+#para instalar atool es apt-get install atool
 pkgdir=paquete
 srcdir=$pkgname-$pkgver
 path=$PWD
