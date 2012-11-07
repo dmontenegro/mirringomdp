@@ -20,7 +20,5 @@ else
 	echo 'Installing dependencies...'
 	apt-get install depends
 	echo 'Installing program...'
-	for instFile in $confFiles
-		do
-			cp $instFile $confpath
+	
 fi
