@@ -16,7 +16,10 @@ mkdir $srcdir
 mkdir $pkgdir
 #echo $source
 wget $source
-ss=`sha512sum $pkgname-$pkgver.tar.bz2| cut -d " " -f 1`
+#ss=`sha512sum $pkgname-$pkgver.tar.bz2| cut -d " " -f 1`
+
+ss=`sha512sum $pkgname-$pkgver.* | cut -d " " -f 1`
+
 #echo $sha512sums
 #echo $ss
 if [ $ss != $sha512sums ]
@@ -25,8 +28,14 @@ then
     echo "Suma criptografica mala."
 exit 1
 fi
-tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
-#aunpack $pkgname-$pkgver* $srcdir
+#tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
+
+aunpack $pkgname-$pkgver.* 
+cd Unpack-* #Entra al paquete descomprimido
+cp -r $pkgname-$pkgver* $path/
+cd /$path
+rm -rf Unpack-*
+
 build
 cd $pkgdir
 tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *  
@@ -35,4 +44,5 @@ cd $path
 rm -rf $pkgdir
 rm -rf $srcdir
 rm -rf $pkgname-$pkgver
-rm $pkgname-$pkgver.tar.bz2
+#rm $pkgname-$pkgver.tar.bz2
+rm $pkgname-$pkgver.*
