@@ -1,10 +1,10 @@
 #!/bin/sh
 
-#Here's where all dependencies are listed
+#Lista de las dependencias del programa
 depends='atool html2text'
 
-#Defining the path for the files of the program
-#and the list of files that are going to be copied.
+#Definiendo las direcciones que se crearán
+#y los archivos que se copiarán a los directorios
 confpath=/etc/mirringo
 confFiles="buscar.sh construir.sh info.sh new.sh receta.sh info.txt"
 
@@ -14,38 +14,46 @@ bdFiles='mybd.bd'
 binpath=/usr/bin
 binFile='mirringo.sh'
 
-
-#This is going to be used as a partial solution
-#it only works on debian-based linux distros
-
+notInstalled=''
+#Verificar si se está ejecutando como root.
 if [ $(whoami) != "root" ] ; then
-	echo 'sorry, you must be root to run this script'
-      exit 1
+	echo 'Debe ser root para ejecutar este archivo'
+    exit 1
 else
+	#Verifica si todas las dependencias estan instaladas
+	for package in $depends
+	do
+		if ! which $package > /dev/null; then
+			notInstalled=$notInstalled$package' '
+		fi
+	done
 	
-	echo 'Installing dependencies...'
-	apt-get install depends
+	if [$notInstalled != '']; then
+		echo '$notInstalled no estan instalados y son necesarios para el programa'
+		exit 1
 	
-	#Making the paths for the program installation
-	mkdir $confpath
-	mkdir $confpath/config 	
-	mkdir $binpath
+	else
+		#Crea los directorios de instalación
+		mkdir $confpath
+		mkdir $confpath/config 	
+		mkdir $binpath
+			
+		#Copiando los archivos de configuración a su directorio
+		echo 'Instalando...'
 		
-	#Copying the configuration files to the corresponding directory
-	echo 'Installing program...'
-	for instFile in $confFiles
-		do
-			cp $instFile $confpath/config
-		done
-	#Copying the database files to the corresponding directory	
-	for instFile in $bdFiles
-		do
-			cp $instFile $bdpath
-		done
-	
-	#Copying the executable file to the corresponding directory
-	cp $binFile $binpath
+		for instFile in $confFiles
+			do
+				cp $instFile $confpath/config
+			done
+			
+		#Copiando los archivos de base de datos a su directorio	
+		for instFile in $bdFiles
+			do
+				cp $instFile $bdpath
+			done
+		
+		#Copiando el archivo ejecutable al directorio de ejecutables
+		cp $binFile $binpath
+	fi
 	
 fi
-
-echo "done :D"
