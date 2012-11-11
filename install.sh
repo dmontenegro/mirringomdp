@@ -1,12 +1,12 @@
 #!/bin/sh
 
 #Lista de las dependencias del programa
-depends='atool html2text'
+depends="atool html2text git"
 
 #Definiendo las direcciones que se crearán
 #y los archivos que se copiarán a los directorios
 confpath=/etc/mirringo
-confFiles="buscar.sh construir.sh info.sh new.sh receta.sh info.txt"
+confFiles='buscar.sh construir.sh info.sh new.sh receta.sh info.txt'
 
 bdpath=/var/mirringo
 bdFiles='mybd.bd'
@@ -14,46 +14,51 @@ bdFiles='mybd.bd'
 binpath=/usr/bin
 binFile='mirringo.sh'
 
-notInstalled=''
+notInstalled=""
+
 #Verificar si se está ejecutando como root.
 if [ $(whoami) != "root" ] ; then
 	echo 'Debe ser root para ejecutar este archivo'
     exit 1
 else
+
 	#Verifica si todas las dependencias estan instaladas
-	for package in $depends
+	for pckg in $depends
 	do
-		if ! which $package > /dev/null; then
-			notInstalled=$notInstalled$package' '
+		if ! which $pckg > /dev/null; then
+			notInstalled=$notInstalled"$pckg "
 		fi
 	done
-	
-	if [$notInstalled != '']; then
-		echo '$notInstalled no estan instalados y son necesarios para el programa'
+
+	if 	[ "$notInstalled" != "" ]; then
+		echo $notInstalled'no estan instalados y son necesarios para el programa'
 		exit 1
 	
 	else
+	
 		#Crea los directorios de instalación
 		mkdir $confpath
 		mkdir $confpath/config 	
-		mkdir $binpath
-			
-		#Copiando los archivos de configuración a su directorio
+		mkdir $bdpath
+		
 		echo 'Instalando...'
 		
-		for instFile in $confFiles
-			do
-				cp $instFile $confpath/config
-			done
+		#Copiando los archivos de configuración a su directorio
+		for file in $confFiles
+		do
+			cp $file $confpath/config
+		done
 			
-		#Copiando los archivos de base de datos a su directorio	
-		for instFile in $bdFiles
-			do
-				cp $instFile $bdpath
-			done
+		#Copiando los archivos de base de datos a su directorio
+		for file in $bdFiles
+		do	
+			cp $file $bdpath
+		done
 		
 		#Copiando el archivo ejecutable al directorio de ejecutables
 		cp $binFile $binpath
 	fi
+	
+	echo 'Mirringo ha sido instalado'
 	
 fi
