@@ -1,5 +1,5 @@
 #!/bin/bash
-. ./$1
+. $1	#deberia ser absoluta
 #Aqui llamamos el archivo que pasamos por argumento al ejecutar construir .sh
 #que va a ser la receta que vamos a construir probablemente
 #despues vamos a modificar esto, hay que hablarlo.
@@ -27,7 +27,7 @@ if [ $ss != $sha512sums ]
 then
     rm $pkgname-$pkgver.*
     echo "Suma criptografica mala."
-exit 1
+	exit 1
 fi
 #tar xvfj $pkgname-$pkgver.tar.bz2 $srcdir
 
@@ -44,7 +44,7 @@ mv $pkgname-$pkgver-$pkgrel.tar.gz $path
 cd $path 
 
 
-asd=$pkgname"\"","\""v$pkgver"\"","\""v$pkgrel"\"","\""$pkgdesc"\"","\""$url"\"","\""$license"\"","\""$depends"\"","\""$source"\"","\""$sha512sums 
+asd="\""$pkgname"\"","\""v$pkgver"\"","\""v$pkgrel"\"","\""$pkgdesc"\"","\""$url"\"","\""$license"\"","\""$depends"\"","\""$source"\"","\""$sha512sums"\""
 
 echo $asd >>mybd.bd
 
@@ -53,5 +53,7 @@ rm -rf $srcdir
 rm -rf $pkgname-$pkgver
 #rm $pkgname-$pkgver.tar.bz2
 rm $pkgname-$pkgver.*
+
+exit 0
 
 #}
