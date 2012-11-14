@@ -12,7 +12,7 @@ bdpath=/var/mirringo
 bdFiles='mybd.bd'
 
 binpath=/bin
-binFile='mirringo.sh'
+binFile='mirringo'
 
 notInstalled=""
 
