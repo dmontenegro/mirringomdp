@@ -11,6 +11,7 @@
 
 #function construir{
 
+
 pkgdir=paquete
 srcdir=$pkgname-$pkgver
 path=$PWD
