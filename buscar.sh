@@ -19,15 +19,15 @@
 #buscar en un repositorio externo
 if [ -z "$2" ]
 then
-#echo 'en la base de datos local se ha encontrado'
-grep $1 mybd.bd|awk -F '","' '{print "Nombre del programa: \n " $1 "\n \nVersion:\n" $2 "\n \n Version del Builder:\n" $3 "\n \n Descripcion:\n" $4 "\n \n pagina web: \n" $5 "\n \nLicencia: \n" $6 "\n \n Link de descarga directa:\n" $8 "\n \n Suma criptografica:\n" $9}'
-echo -e "\n Dependencias"
-grep $1 mybd.bd|awk -F '","' '{print $7 "\n"}'|awk '{print $0 "\n"}' 
-exit 0
+	#echo 'en la base de datos local se ha encontrado'
+	grep $1 /var/mirringo/mybd.bd|awk -F '","' '{print "Nombre del programa: \n " $1 "\n \nVersion:\n" $2 "\n \n Version del Builder:\n" $3 "\n \n Descripcion:\n" $4 "\n \n pagina web: \n" $5 "\n \nLicencia: \n" $6 "\n \n Link de descarga directa:\n" $8 "\n \n Suma criptografica:\n" $9}'
+	echo -e "\n Dependencias"
+	grep $1 /var/mirringo/mybd.bd|awk -F '","' '{print $7 "\n"}'|awk '{print $0 "\n"}' 
+	exit 0
 else
-#buscar en la bd local
-echo 'En el repositorio indicado se ha encontrado'
-wget -qO- $2|html2text|grep $1
-exit
+	#buscar en la bd local
+	echo 'En el repositorio indicado se ha encontrado'
+	wget -qO- $2|html2text|grep $1
+	exit 0
 fi
 
