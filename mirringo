@@ -18,24 +18,27 @@ function Mirringo
    fi
 
    if [[ $1 = "--build" || $1 = "-b" ]] ; then
-        echo "building"
+	echo "building"
 	source $confpath/construir.sh $2
    fi
 
    if [[ $1 = "--update" || $1 = "-up" ]] ; then
-	echo "Update"
+	echo "Updating"
 	source $confpath/actualizar.sh $2
    fi
 
    if [[ $1 = "--version" || $1 = "-v" ]] ; then
-	echo "version"
 	source $confpath/versionar.sh $2
    fi
 
    if [[ $1 = "--search" || $1 = "-s" ]] ; then
-	echo "search"
+	echo "searching"
 	source $confpath/buscar.sh $2 $3
-   fi 
+   fi
+   
+   if [ "$1" = "" ] ; then
+	source $confpath/usage.sh
+   fi
 }
 
 Mirringo $1 $2 $3
