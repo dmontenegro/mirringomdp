@@ -6,7 +6,7 @@ depends="atool html2text git"
 #Definiendo las direcciones que se crearán
 #y los archivos que se copiarán a los directorios
 confpath=/etc/mirringo
-confFiles='buscar.sh construir.sh info.sh new.sh receta.sh info.txt eliminar.sh instalar.sh actualizar.sh versionar.sh usage.sh'
+confFiles='buscar.sh construir.sh info.sh new.sh receta.sh info.txt eliminar.sh Instalar.sh actualizar.sh versionar.sh usage.sh'
 
 bdpath=/var/mirringo
 bdFiles='mybd.bd'

@@ -9,7 +9,7 @@ function Mirringo
 
    if  [[ $1 = "--install" || $1 = "-i" ]]  ; then
 	echo "installing"
-	source $confpath/instalar.sh $2
+	source $confpath/Instalar.sh $2
    fi
 
    if [[ $1 = "--unistall" || $1 = "-u" ]]; then
@@ -38,6 +38,10 @@ function Mirringo
    
    if [ "$1" = "" ] ; then
 	source $confpath/usage.sh
+   fi
+   
+   if [[ $1 = "--information" || $1 = "-info" ]] ; then
+	source $confpath/info.sh
    fi
 }
 
