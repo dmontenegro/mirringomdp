@@ -9,14 +9,9 @@
 #Construir.sh depende de: atool. libreria la cual tiene apack, aunpack y als.
 #para instalar atool es apt-get install atool
 
-<<<<<<< HEAD
-#function construir{
-
-
-=======
 #Paquetes necesarios para la funcion build y para manejar los respectivos
 #directorios de lo que se va a instalar.
->>>>>>> construir
+
 pkgdir=paquete
 srcdir=$pkgname-$pkgver
 path=$PWD
