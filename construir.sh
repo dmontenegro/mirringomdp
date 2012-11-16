@@ -52,7 +52,7 @@ cd $path
 
 #Agregamos el paquete a la base de datos mybd.bd , previamente creada
 #en la instalacion de mirringmdp.
-asd="\""$pkgname"\"","\""v$pkgver"\"","\""v$pkgrel"\"","\""$pkgdesc"\"","\""$url"\"","\""$license"\"","\""$depends"\"","\""$source"\"","\""$sha512sums"\""
+asd=$pkgname"\"","\""v$pkgver"\"","\""v$pkgrel"\"","\""$pkgdesc"\"","\""$url"\"","\""$license"\"","\""$depends"\"","\""$source"\"","\""$sha512sums
 
 echo $asd >>mybd.bd
 
