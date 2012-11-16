@@ -4,14 +4,6 @@
 ## $2 la ruta
 tem="/tmp/mirringo/Desintalar/"
 
-
-echo "Carpeta tempora:   $tem"
-#### Funcion que busca si el archivo ya esta instalado
-Buscar() {
-	echo "Prueba:  $1\n"
-	echo "Prueba:  $2\n"
-}
-
 ##Funcion q mira si los archivos a capiar ya estan en el sistema
 Verificar()
 {
@@ -29,8 +21,9 @@ Verificar()
 }
 
 ### Para permisos de administrador
-if [ $USER = "root" ]
+if [ $USER != "root" ]
 then
+	echo
 	echo "Necesitas Permiso de Administrador para ejecutar esta funcion\n"
 	exit 1
 
@@ -74,14 +67,22 @@ else
 						exit
 					fi
 					
-					echo "Hace lo de Descomprimir en /"
+					echo "Instalando.... /"
 					tar xf "$2"/"$1" -C /
+					echo "Termino Instlacion"
 					
 					### entra a la carpeta /etc para ver si se modificaron archovos y guardar el estado actual
 					
 					cd /etc
 					
-					if [ $(
+					## Condicion para q hacer el push
+					if [ -n "$(git status -s)" ]
+					then
+						git add .
+						git commit -m {archivo%%.*}
+						git push origin master
+						exit
+					fi
 					
 					
 					;;
@@ -110,9 +111,3 @@ else
 		exit 1
 	fi
 fi
-## tar tzf Prueba.tar.gz | sed '/\/$/d' Para eliminar las lineas que terminas en / osea /home/
-### Solo dejas las q tienes una extension o un archivo despues osea /home/algo.txt
-
-
-#echo "Archivo:    $1\n"
-#echo "Ruta:    $2\n"
