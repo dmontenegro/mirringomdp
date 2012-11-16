@@ -9,9 +9,11 @@
 #$3 representa la version del paquete
 
 
-SearchNAME=$(grep $1 /tmp/mirringo/Instalados/Instalados.bd |wc -l)
+#SearchNAME=$(grep $1 /tmp/mirringo/Instalados/Instalados.bd |wc -l)
+SearchNAME=$(grep $1 mybd.bd |wc -l)
 
 PKGNAME=$1
+
 if [ $SearchNAME -eq 0 ]
 then
 	echo 0
@@ -19,11 +21,10 @@ else
 	#obtener la cantidad de puntos
 	n1=$(echo $2|tr [="."=] ' '|awk '{print NF}'| sort -nu | tail -n 1)
 	n2=$(echo $3|tr [="."=] ' '|awk '{print NF}'| sort -nu | tail -n 1)
+	
 	ValorRetornoRec=$(source CompararVersiones.sh $n1 $2 2) #comparacion Versiones de receta
-	echo "Ret:  "$ValorRetornoRec
 	ValorRetornoVer=$(source CompararVersiones.sh $n2 $3 3) #comparacion Versiones de Paquete
 	
-	echo "Ver:  "$ValorRetornoVer
 	if [ $ValorRetornoRec -lt $ValorRetornoVer ]
 	then
 		echo $ValorRetornoRec
