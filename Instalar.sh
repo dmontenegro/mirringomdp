@@ -5,8 +5,7 @@
 
 
 
-tem="/tmp/mirringo/Desintalar/"
-tem1="/tmp/mirringo/Instalados/"
+tem="/var/mirringo/"
 
 ##Funcion q mira si los archivos a capiar ya estan en el sistema
 Verificar()
@@ -26,7 +25,7 @@ Verificar()
 
 ### Para permisos de administrador
 Instalar(){
-	if [ $USER = "root" ]
+	if [ $USER != "root" ]
 	then
 		echo
 		echo "Necesitas Permiso de Administrador para ejecutar esta funcion"
@@ -54,71 +53,65 @@ Instalar(){
 				
 				
 				### echo "geany_2.0_2" | sed 's/-/ /g'
-				echo "Pruba:  "$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
+				et=$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
 				
-				et=3
+				
 				### Condicional que mira si esta instalado
 				
 				case $et in
 					
 					0 )
 						
-						## lo hago por si las moscas
+						
+						
 						cd $tem
-						et=$tem${archivo%%.*}".txt"
+						et=$tem$(echo $archivo | sed -e 's/.tar.gz/.txt/g')
 						
 						## lo copio en la carpeta desintalacion
-						tar tzf "$2"/"$1" | sed '/\/$/d' > ${archivo%%.*}".txt"
+						tar tzf "$2"/"$1" | sed '/\/$/d' > $et
+						
+						
+						
 						
 						if [ $(Verificar $et) = 1 ]
 						then
 							echo "Conflictos en archivos del paquete"
-							rm ${archivo%%.*}".txt"
-							exit
+							rm $(echo $archivo | sed -e 's/.tar.gz/.txt/g')
+							exit 1
 						fi
 						
-						echo "Instalando.... ${archivo%%.*}"
-						echo
-						tar xf "$2"/"$1" -C /
-						cat /info.txt >> $tem1"/Instalados.db"
-						echo "Termino Instalacion"
-						echo
+						## No se puede isntalar
+						tar -zxvf "$2"/"$1"c -C /
 						
+						cat /infobd.txt >> mybd.bd
 						### entra a la carpeta /etc para ver si se modificaron archovos y guardar el estado actual
 						
+						rm infobd.txt
 						cd /etc
 						
 						## Condicion para q hacer el push
 						if [ -n "$(git status -s)" ]
 						then
 							git add .
-							git commit -m {archivo%%.*}
+							git commit -m $(echo $archivo | sed -e 's/.tar.gz/.txt/g')
 							git push origin master
 							exit
 						fi
 						
-						
 						;;
 					
-					2 )
+					1 )
 						echo "El Paquete a instalar es una version Anterior, no se instalara"
 						exit 1
 						;;
-					1 )
-						$op
-						echo "Desea Actilzar el Paquete (si o no):  "
-						read op
-						case $op in
-							"si" )
-									echo "Llama lo de nelson"
-									;;
-							"no" )
-									exit 1
-									;;
-						esac
+					2 )
+						echo
+						echo "Si desea instalar este paquete por favor utilice la funcion mirringo -up NombrePaquete.tar.gz"
+						echo
 						;;
 					3) 
 						echo "El Paquete $archivo ya se encuentra"
+						exit 1
 				esac
 			fi
 		else
