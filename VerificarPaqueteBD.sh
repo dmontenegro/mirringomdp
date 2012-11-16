@@ -10,7 +10,7 @@
 #$3 representa la version del paquete
 
 
-PKGNAME=$(grep $1 mybd2.bd|wc -l)
+PKGNAME=$(grep $1 mybd.bd|wc -l)
 
 if [ $PKGNAME -eq 0 ]
 then
