@@ -18,7 +18,7 @@ else
 		Num=$(echo $2|tr [="."=] ' '|cut -d " " -f$i)
 		
 		#Num2 Corresponde a la version del paquete instalado
-		Num2=$(grep $PKGNAME mybd.bd|cut -d "," -f$3 |tr [="."=] ' ' | cut -d " " -f$i)
+		Num2=$(grep $PKGNAME mybd.bd|cut -d '","' -f$3 |tr [="."=] ' ' | cut -d " " -f$i)
 		
 		if [ $Num -gt $Num2  ]
 		then
