@@ -16,18 +16,17 @@ do
 	if [ $Num -gt $Num2  ]
 	then
 		echo 2
-		Tmp=2
 		break
 	elif [ $Num -lt $Num2  ]
 	then
 		echo 1
-		Tmp=2
 		break
-	fi
+	
+	elif [ $Num -eq $Num2 ]
+	then
+		echo 3
+		break
+	fi	
 done
 
-if [ Tmp -ne 2 ]
-then
-	echo 2
-fi
 
