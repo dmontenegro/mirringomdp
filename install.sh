@@ -14,6 +14,8 @@ bdFiles='mybd.bd'
 binpath=/bin
 binFile='mirringo'
 
+gitPath=/etc
+
 notInstalled=""
 
 #Verificar si se está ejecutando como root.
@@ -67,6 +69,9 @@ else
 		chown root:root $binpath/$binFile
 		chmod 755 $binpath/$binFile
 		
+		echo "Inicializando el repositorio..."
+		git init $gitPath
+
 		echo 'Mirringo ha sido instalado'
 	
 		exit 0
