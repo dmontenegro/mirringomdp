@@ -22,7 +22,7 @@ else
 	if [ $l -eq 1 ] ; then		
 		rline=`awk -F '","' '{print $1}' $bdpath/mybd.bd | grep $1 -n | awk -F ':' '{print $1}'`	#saca el número de la línea en la db
 		
-		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
+		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2"-"$3".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
 	fi
 	
 	if [ $l -ne 1 ] ; then
@@ -51,7 +51,7 @@ else
 		
 		rline=`awk -F '","' '{print $1}' $bdpath/mybd.bd | grep $1 -n | sed -n ${line}p | awk -F ':' '{print $1}'`	#saca el número de la línea en la db
 		
-		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
+		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2"-"$3".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
 
 	fi
 	
