@@ -53,7 +53,7 @@ Instalar(){
 				
 				
 				### echo "geany_2.0_2" | sed 's/-/ /g'
-				et=$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
+				et=$(source VerificarPaqueteBD.sh $(echoBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
 				
 				
 				### Condicional que mira si esta instalado
@@ -81,7 +81,7 @@ Instalar(){
 						fi
 						
 						## No se puede isntalar
-						tar -zxvf "$2"/"$1"c -C /
+						tar -zxvf "$2"/"$1" -C /
 						
 						cat /infobd.txt >> mybd.bd
 						### entra a la carpeta /etc para ver si se modificaron archovos y guardar el estado actual
@@ -95,7 +95,7 @@ Instalar(){
 							git add .
 							git commit -m $(echo $archivo | sed -e 's/.tar.gz/.txt/g')
 							git push origin master
-							exit
+							exit 1
 						fi
 						
 						;;

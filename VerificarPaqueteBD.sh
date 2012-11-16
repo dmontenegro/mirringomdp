@@ -26,7 +26,7 @@ else
 		echo $ValorRetornoRec
 	elif [ $ValorRetornoVer -lt $ValorRetornoRec ]
 	then
-		echo $ValorRetornoVer
+		echo $ValorRetornoVer 
 	elif [ $ValorRetornoVer -eq $ValorRetornoRec ]
 	then
 		echo $ValorRetornoVer
