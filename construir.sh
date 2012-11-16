@@ -46,15 +46,18 @@ build
 #Nos movemos a pkgdir. La comprimimos y esta es la que va a ser usada para la
 #instalacion.
 cd $pkgdir
+
+#Agregamos el paquete a la base de datos mybd.bd , previamente creada
+#en la instalacion de mirringmdp.
+alabd=$pkgname"\"","\""v$pkgver"\"","\""v$pkgrel"\"","\""$pkgdesc"\"","\""$url"\"","\""$license"\"","\""$depends"\"","\""$source"\"","\""$sha512sums
+
+echo $alabd > infobd.txt
+
+
 tar cvfz $pkgname-$pkgver-$pkgrel.tar.gz *  
 mv $pkgname-$pkgver-$pkgrel.tar.gz $path
 cd $path 
 
-#Agregamos el paquete a la base de datos mybd.bd , previamente creada
-#en la instalacion de mirringmdp.
-asd=$pkgname"\"","\""v$pkgver"\"","\""v$pkgrel"\"","\""$pkgdesc"\"","\""$url"\"","\""$license"\"","\""$depends"\"","\""$source"\"","\""$sha512sums
-
-echo $asd >>mybd.bd
 
 #Borramos todo lo innecesario. Dejamos solo el .tar.gz de la construccion del paquete
 rm -rf $pkgdir
