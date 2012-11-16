@@ -11,16 +11,23 @@ do
 	Num=$(echo $2|tr [="."=] ' '|cut -d " " -f$i)
 	
 	#Num2 Corresponde a la version del paquete instalado
-	Num2=$(grep foo mybd.bd |cut -d "," -f$3 |tr [="."=] ' ' | cut -d " " -f$i)
+	Num2=$(grep $PKGNAME mybd.bd |cut -d "," -f$3 |tr [="."=] ' ' | cut -d " " -f$i)
 	
 	if [ $Num -gt $Num2  ]
 	then
 		echo 2
+		Tmp=2
 		break
 	elif [ $Num -lt $Num2  ]
 	then
 		echo 1
+		Tmp=2
 		break
 	fi
 done
+
+if [ Tmp -ne 2 ]
+then
+	echo 2
+fi
 
