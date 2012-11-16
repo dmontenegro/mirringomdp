@@ -37,6 +37,8 @@ Instalar(){
 		#echo "ARchivo:   " $2"/"$
 		archivo=$1
 		ext=${archivo#*.}
+		Col=$(echo $archivo |tr [="-"=] ' '|cut -d " " -f3 | tr [="."=] ' '|awk '{print NF}'| sort -nu | tail -n 1)
+		ext=$(echo $archivo |tr [="-"=] ' '|cut -d " " -f3 | tr [="."=] ' '|cut -d " " -f3,4|tr [:blank:] '.')
 		if [ -f "$2"/"$1" ]
 		then
 		
@@ -48,8 +50,13 @@ Instalar(){
 				##echo "Extension Correcta, Buscariamos si el archivo no este instalado\n\n"
 				#Buscar MyDB.db ALgo.sh
 				## Seria:  et=Funcion
-				et=0 ## $(funcion Juan Pablo)Iria funcion de juan pablo ${archivo%%.*}
+				#et=0 ## $(funcion Juan Pablo)Iria funcion de juan pablo ${archivo%%.*}
 				
+				
+				### echo "geany_2.0_2" | sed 's/-/ /g'
+				echo "Pruba:  "$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
+				
+				et=3
 				### Condicional que mira si esta instalado
 				
 				case $et in
@@ -57,8 +64,6 @@ Instalar(){
 					0 )
 						
 						## lo hago por si las moscas
-						mkdir -p "/tmp/mirringo/"
-						mkdir -p $tem
 						cd $tem
 						et=$tem${archivo%%.*}".txt"
 						
@@ -72,11 +77,10 @@ Instalar(){
 							exit
 						fi
 						
-						mkdir -p $tem1
 						echo "Instalando.... ${archivo%%.*}"
 						echo
 						tar xf "$2"/"$1" -C /
-						cat /info.txt >> $tem1"/mybd.db"
+						cat /info.txt >> $tem1"/Instalados.db"
 						echo "Termino Instalacion"
 						echo
 						
@@ -96,11 +100,11 @@ Instalar(){
 						
 						;;
 					
-					1 )
+					2 )
 						echo "El Paquete a instalar es una version Anterior, no se instalara"
 						exit 1
 						;;
-					2 )
+					1 )
 						$op
 						echo "Desea Actilzar el Paquete (si o no):  "
 						read op
@@ -113,6 +117,8 @@ Instalar(){
 									;;
 						esac
 						;;
+					3) 
+						echo "El Paquete $archivo ya se encuentra"
 				esac
 			fi
 		else
