@@ -1,0 +1,8 @@
+lib/libemon.a
+bin/lemon-0.x-to-1.x.sh
+lib/libemon.la
+bin/dimacs-to-lgf
+bin/lgf-gen
+lib/pkgconfig/lemon.pc
+bin/dimacs-solver
+info.txt
