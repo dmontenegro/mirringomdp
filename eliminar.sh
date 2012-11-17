@@ -10,7 +10,7 @@ if [ $UID -ne 0 ] ; then
 	echo 'Debe tener permisos de root para ejecutar este archivo'
     exit 1
 else
-	l=`grep $1 $bdpath/mybd.bd -c`	#número de líneas donde encontro el parámetro
+	l=`awk -F '","' '{print $1}' $bdpath/mybd.bd | grep $1 -c`	#número de líneas donde encontro el parámetro
 	if [ $l -eq 0 ] ; then
 		echo 'No se ha instalado con Mirringo'
 	    exit 1
@@ -20,9 +20,9 @@ else
 	IFS=$'\n'
 	
 	if [ $l -eq 1 ] ; then		
-		rline=`grep $1 $bdpath/mybd.bd -n | awk -F ':' '{print $1}'`	#saca el número de la línea en la db
+		rline=`awk -F '","' '{print $1}' $bdpath/mybd.bd | grep $1 -n | awk -F ':' '{print $1}'`	#saca el número de la línea en la db
 		
-		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
+		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2"-"$3".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
 	fi
 	
 	if [ $l -ne 1 ] ; then
@@ -30,7 +30,7 @@ else
 		
 		#Mostrar las opciones
 		i=1
-		for pckg in `grep $1 $bdpath/mybd.bd | awk -F '","' '{print $1" V"$2" VB"$3}'`; do
+		for pckg in `awk -F '","' '{print $1" "$2" "$3}' $bdpath/mybd.bd | grep $1`; do
 			echo "$i) $pckg"
 			let i++
 		done
@@ -49,14 +49,14 @@ else
 			exit 1
 		fi
 		
-		rline=`grep $1 $bdpath/mybd.bd -n | sed -n ${line}p | awk -F ':' '{print $1}'`	#saca el número de la línea en la db
+		rline=`awk -F '","' '{print $1}' $bdpath/mybd.bd | grep $1 -n | sed -n ${line}p | awk -F ':' '{print $1}'`	#saca el número de la línea en la db
 		
-		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
+		fil=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1"-"$2"-"$3".txt"}'`	#saca el nombre del archivo que debe tener los archivos a borrar
 
 	fi
 	
 	#guardar configuración
-	nom=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1" V"$2" VB"$3}'`
+	nom=`sed -n ${rline}p $bdpath/mybd.bd | awk -F '","' '{print $1" "$2" "$3}'`
 	
 	read -p "¿Desea guardar la configuración?" sn
 	case $sn in
