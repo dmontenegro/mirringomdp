@@ -6,8 +6,9 @@ confpath=/etc/mirringo/config
 
 function Mirringo
 {
-   cd $confpath
+   
    if  [[ $1 = "--install" || $1 = "-i" ]]  ; then
+   cd $confpath
 	echo "installing"
 	source $confpath/Instalar.sh $2 $3
    fi

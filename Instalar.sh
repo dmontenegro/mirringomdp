@@ -33,17 +33,14 @@ Instalar(){
 		exit 1
 
 	else
-		#echo "ARchivo:   " $2"/"$
 		archivo=$1
 		ext=${archivo#*.}
-		#Col=$(echo $archivo |tr [="-"=] ' '|cut -d " " -f3 | tr [="."=] ' '|awk '{print NF}'| sort -nu | tail -n 1)
 		Col=$(grep -o "-" <<<"$archivo" | wc -l) #cuenta la cantidad de "-" que hay en el archivo
 		Col=$(echo $Col + 1 | bc) #Col mas 1
 		Col_ext=$(echo $archivo |tr [="-"=] ' '|cut -d " " -f$Col | tr [="."=] ' '|awk '{print NF}'| sort -nu | tail -n 1)
 		Col_ext2=$(echo $Col_ext - 1 | bc)
 		ext=$(echo $archivo |tr [="-"=] ' '|cut -d " " -f$Col | tr [="."=] ' '|cut -d " " -f$Col_ext2,$Col_ext|tr [:blank:] '.')
-		echo "ext: " $ext
-		echo "Col: " $Col
+		
 		if [ -f "$2"/"$1" ]
 		then
 		
@@ -52,18 +49,10 @@ Instalar(){
 				echo "Extension Incorrecta, debe ser tar.gz"
 				exit 1
 			else
-				##echo "Extension Correcta, Buscariamos si el archivo no este instalado\n\n"
-				#Buscar MyDB.db ALgo.sh
-				## Seria:  et=Funcion
-				#et=0 ## $(funcion Juan Pablo)Iria funcion de juan pablo ${archivo%%.*}
-				
-				
-				### echo "geany_2.0_2" | sed 's/-/ /g'
-				#et=$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
+
 				et=$(source VerificarPaqueteBD.sh $archivo)
 				
 				### Condicional que mira si esta instalado
-				echo "Valor:   "$et
 				case $et in
 					
 					0 )
