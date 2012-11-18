@@ -59,8 +59,8 @@ Instalar(){
 				
 				
 				### echo "geany_2.0_2" | sed 's/-/ /g'
-				et=$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
-				
+				#et=$(source VerificarPaqueteBD.sh $(echo $archivo | sed -e 's/-/ /g' -e 's/.tar.gz/ /g' ))
+				et=$(source VerificarPaqueteBD.sh $archivo)
 				
 				### Condicional que mira si esta instalado
 				
