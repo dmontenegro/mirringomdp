@@ -15,7 +15,12 @@ VerPaq=$(echo $Versiones|cut -d ' ' -f2)
 
 SearchNAME=$(grep $PKGNAME /var/mirringo/mybd.bd |wc -l)
 
-if [ "$SearchNAME" -eq "0" ]
+
+#echo "NAME:  "$PKGNAME
+#echo "VErR:  "$VerRec
+#echo "VERPA:  "$VerPaq
+
+if [ $SearchNAME -eq 0 ]
 then
 	#El paquete no se encuentra instalado en la base de datos
 	echo 0
