@@ -8,11 +8,11 @@
 
 Col=$3  
 
-if [ Col -eq 2 ]
+if [ $Col -eq 2 ]
 then
 
 	Var=$(grep $PKGNAME /var/mirringo/mybd.bd| awk -F '","' '{print $2}')
-elif [ Col -eq 3 ]
+elif [ $Col -eq 3 ]
 then
 	
 	Var=$(grep $PKGNAME /var/mirringo/mybd.bd| awk -F '","' '{print $3}')
