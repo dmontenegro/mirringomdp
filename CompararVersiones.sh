@@ -4,7 +4,7 @@
 #$2 representa la version que se va a comparar
 #$3 representa la columna o version que se quiere comparar
 
-Var=$(grep $PKGNAME /var/mirringo/mybd.bd |cut -d "," -f$3)
+Var=$(grep $PKGNAME /var/mirringo/mybd.bd |cut -d '","' -f$3)
 
 if [ "$2" = "$Var" ]
 then
