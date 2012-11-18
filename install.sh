@@ -67,12 +67,17 @@ else
 
 	chown root:root $binpath/$binFile
 	chmod 755 $binpath/$binFile
-	
+
 	oldpwd=`pwd`
+
+	#Configurando el repositorio.
 	cd /etc
 	git init
+	git config --global user.name "mirringo"
+	git config --global user.email "mirringo@fakemail.com"
+	git remote add origin mirringo:/etc
 	cd "$oldpwd"
-	
+
 	echo 'Mirringo ha sido instalado'
 	exit 0
     fi
