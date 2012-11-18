@@ -88,7 +88,7 @@ Instalar(){
 						then
 							git add .
 							git commit -m $(echo $archivo | sed -e 's/.tar.gz/.txt/g')
-							git push origin master
+							git push master
 							exit 1
 						fi
 						
